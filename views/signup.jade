@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  nav.navbar.navbar-default
+    div.container-fluid
+      div.navbar-header
+        a.navbar-brand Welcome to Generic Form-Based Sign Up
+      ul.nav.navbar-nav.navbar-right
+        li
+          a(href="/signup") Sign Up
+        li
+          a(href="/signin") Sign In
+        if(signedIn)
+          li
+            #{name}
+          li
+            a(href="/signout") Sign Out
+
+  div.container
+    div.row
+      div.col-md-4
+        h1= title
+        p Welcome to #{title}
+        if errors
+          div.row
+            div.alert.alert-danger
+              ul
+                for error in errors
+                  li #{error}
+    div.row
+      div.col-md-4
+        form(action="/signup", method="POST")
+          div.form-group
+            label#name Name:
+            input(type="text", name="name", id="name", class="form-control", placeholder="Name?", value= name)
+          div.form-group
+            label#password Password:
+            input(type="text", name="password", id="password", class="form-control", value= password)
+          div.form-group
+            label#passConfirm Confirm Password:
+            input(type="text", name="passConfirm", id="passConfirm", class="form-control", value= passConfirm)
+          button(type="submit").btn.btn-default Create Account

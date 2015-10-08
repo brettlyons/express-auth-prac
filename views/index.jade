@@ -1,5 +1,27 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  nav.navbar.navbar-default
+    div.container-fluid
+      div.navbar-header
+        a.navbar-brand Welcome to Generic Form-Based Sign up, #{name}
+      ul.nav.navbar-nav.navbar-right
+        if(signedIn)
+          li
+            #{name}
+          li
+            a(href="/signout") Sign Out
+        else
+          li
+            a(href="/signup") Sign Up
+          li
+            a(href="/signin") Sign In
+  div.p
+  div.container
+    div.row
+      div.col-lg-8
+        div.well
+          if(signedIn)
+            p All you can really do from here is sign out ^^
+          else
+            p Welcome!  You can sign up or sign in via the links in the upper right.
