@@ -43,9 +43,9 @@ router.post('/signup', function(req, res, next) {
   if(req.body.password != req.body.passConfirm) {
     errors.push("Both password fields must match");
   }
-  // if(req.body.password.length < 8 ) {
-  //   errors.push("Password must be more than 8 characters long");
-  // } // **DEBUG**DEBUG**DEBUG** Re-enable this after testing
+  if(req.body.password.length < 8 ) {
+    errors.push("Password must be more than 8 characters long");
+  } // **DEBUG**DEBUG**DEBUG** Re-enable this after testing
   console.log(req.body.name);
   if(req.body.name.trim().length != 0) {
     collection.find({ name: req.body.name }, function(err, dbEntries) {
