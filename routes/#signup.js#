@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt');
 
 /* GET / */
 router.get('/', function(req, res, next){
-  var name = "Human";
+  var name = "Person";
   var signedIn = false;
   if(req.session.signedIn) {
     name = req.session.name;
@@ -18,10 +18,12 @@ router.get('/', function(req, res, next){
     signedIn: signedIn
   });
 });
+
 router.get('/logout', function(req, res, next) {
   req.session = null;
   res.redirect('/');
 });
+
 router.get('/signup', function(req, res, next) {
   if (req.session.signedIn) {
     res.redirect('/');
@@ -44,7 +46,7 @@ router.post('/signup', function(req, res, next) {
   if(req.body.password.length < 8 ) {
     errors.push("Password must be more than 8 characters long");
   } 
-  // console.log(req.body.name);
+  console.log(req.body.name);
   if(req.body.name.trim().length != 0) {
     collection.find({ name: req.body.name }, function(err, dbEntries) {
       if(dbEntries.length == 0 && errors.length == 0)  {
@@ -97,7 +99,7 @@ router.post('/signin', function(req, res, next) {
       errors.push("Username/password not found");
       reportErrors(req.body);
     }
-    // console.log(bcrypt.compare(req.body.password, dbEntry.passwordDigest));
+    console.log(bcrypt.compare(req.body.password, dbEntry.passwordDigest));
     if(req.body.name !== dbEntry.name
        || !(bcrypt.compareSync(req.body.password, dbEntry.passwordDigest))) {
       errors.push("Username/password doesn't match");
